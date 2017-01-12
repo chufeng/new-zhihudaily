@@ -139,9 +139,9 @@
 // 关闭菜单
 //=====================
 - (void)ll_closeSlideMenu {
-    if (_ll_animManager.isAnimating) {
-        return;
-    }
+//    if (_ll_animManager.isAnimating) {
+//        return;
+//    }
     _displayLayer.isAnimating = YES;
     _closeMenuButton.hidden = YES;
     _ll_animManager.isAnimating = YES;
@@ -152,9 +152,9 @@
 // 打开菜单
 //=====================
 - (void)ll_openSlideMenu {
-    if (_ll_animManager.isAnimating) {
-        return;
-    }
+//    if (_ll_animManager.isAnimating) {
+//        return;
+//    }
     self.hidden = NO;
     _displayLayer.isAnimating = NO;
     _closeMenuButton.hidden = NO;

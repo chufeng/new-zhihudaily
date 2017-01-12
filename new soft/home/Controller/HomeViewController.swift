@@ -65,7 +65,7 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
             self.edgesForExtendedLayout = UIRectEdge.top
             createMenu()
 //            showLauchImage()
-            self.tableview.tableHeaderView=headview
+//            self.tableview.tableHeaderView=headview
             loadData()
         }
     func createMenu(){
@@ -110,7 +110,7 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
         
     }
     lazy var adView:TTCollectionView = {
-        let adView = TTCollectionView.init(frame: CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: 200))
+        let adView = TTCollectionView.init(frame: CGRect(x: 0, y: 0, width: WINDOW_WIDTH, height: 240))
         adView.collectionViewDelegate=self
         adView.timeInterval = 4;
         self.headview.addSubview(adView)
@@ -237,10 +237,12 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
         
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             if section==0{
-                return 1
+                return 0
             }
             else
             {
+                print("section=",section)
+            print((self.dataFull[self.dataKey[section-1] as! String] as! NSArray).count)
                 let array1 = self.dataFull[self.dataKey[section-1] as! String] as! NSArray
                 return array1.count
             }
@@ -248,12 +250,12 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
         {
-            if indexPath.section==0{
-                return CGFloat(toWindowHeight)
-            }
-            else{
+//            if indexPath.section==0{
+//                return CGFloat(toWindowHeight)
+//            }
+//            else{
                 return 106
-            }
+//            }
 
         
         }
@@ -295,11 +297,15 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
         {
-            if(section <= 1)
+            if(section < 1)
             {
+                return 240
+            }else if (section==1){
                 return 0
-            }
+            }else{
             return 30 //NavigationBar Height
+            }
+            
         }
         
         
@@ -310,6 +316,8 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
             lbl.backgroundColor = UIColor.lightGray
             if(section > 0){
                 lbl.text = self.dataKey[section-1] as? String
+            }else{
+                return headview
             }
             lbl.textColor = UIColor.white
             lbl.textAlignment = NSTextAlignment.center
@@ -337,6 +345,10 @@ class HomeViewController: UIViewController,TTCollectionViewDelegate,UITableViewD
         }
     func cellClick(with index: Int) {
         print(index)
+        let data = self.slideArray[index] as! NSDictionary
+        let detailCtrl = DetailViewController(nibName :"DetailViewController", bundle: nil)
+        detailCtrl.aid = data["id"] as! Int
+        self.navigationController!.pushViewController(detailCtrl, animated: true)
     }
         //MARK:
         

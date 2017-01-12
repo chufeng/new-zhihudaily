@@ -186,5 +186,4 @@ static NSString *ANIM_ENDCIRCLE = @"endLLCircleAnimate";
     }
 }
 
-
 @end
